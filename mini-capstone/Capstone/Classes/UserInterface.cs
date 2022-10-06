@@ -19,14 +19,49 @@ namespace Capstone.Classes
         /// </summary>
         public void Run()
         {
+
             bool done = false;
 
             while (!done)
             {
-                Console.WriteLine("Greetings from the User Interface object.");
-                Console.ReadLine();
+                DisplayMenu();
+                string userInput = Console.ReadLine();
+
+                switch (userInput)
+                {
+                    case "1":
+                        ListInventory();
+                        break;
+                    case "2":
+                        break;
+                    case "3":
+                        break;
+                    default:
+                        Console.WriteLine();
+                        Console.WriteLine("Please make a valid choice");
+                        break;
+                }
 
             }
+        }
+
+        private void ListInventory()
+        {
+            DataAccess inventory = new DataAccess();
+            Candy[] result = inventory.GetCandy();
+            Console.WriteLine($"Id - Name - Wrapper - Qty - Price");
+
+            foreach (Candy item in result)
+            {
+                Console.WriteLine(item.ToString());
+            }
+        }
+        private void DisplayMenu()
+        {
+            Console.WriteLine();
+            Console.WriteLine("(1) Show Inventory");
+            Console.WriteLine("(2) Make Sale");
+            Console.WriteLine("(3) Quit");
         }
     }
 }
