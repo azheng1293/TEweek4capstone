@@ -49,7 +49,7 @@ namespace Capstone.Classes
         {
             DataAccess inventory = new DataAccess();
             Candy[] result = inventory.GetCandy();
-            Console.WriteLine($"Id - Name - Wrapper - Qty - Price");
+            Console.WriteLine("Id".PadLeft(5) + "Name".PadLeft(7) + "Wrapper".PadLeft(19) + "Qty".PadLeft(11) + "Price".PadLeft(14));
 
             foreach (Candy item in result)
             {

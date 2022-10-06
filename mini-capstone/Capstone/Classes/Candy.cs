@@ -9,11 +9,11 @@ namespace Capstone.Classes
         public string ID { get; set; }
         public string Type { get; set; }
         public string Name { get; set; }
-        public bool Wrapper { get; set; }
+        public string Wrapper { get; set; }
         public int Qty { get; } = 100;
         public decimal Price { get; set; }
 
-        public Candy (string id, string type, string name, decimal price, bool wrapper)
+        public Candy (string id, string type, string name, decimal price, string wrapper)
         {
             ID = id;
             Type = type;
@@ -27,22 +27,22 @@ namespace Capstone.Classes
 
         }
 
-        public bool IfWrapper(string haveWrapper)
+        public string IfWrapper(string haveWrapper)
         {
       
                 if (haveWrapper == "T")
                 {
-                    return true;
+                    return "Y";
                 }
                 else
                 {
-                    return false;
+                    return "N";
                 }
         }
 
         public override string ToString()
         {
-            return $"{ID} - {Name} - {Wrapper} - {Qty} - {Price.ToString("C")}";
+            return $"{ID.PadLeft(5)}  {Name.PadRight(20)} {Wrapper.PadRight(10)} {Qty.ToString().PadRight(10)}  {Price.ToString("C").PadRight(50)}";
         }
 
     }
