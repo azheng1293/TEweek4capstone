@@ -10,7 +10,7 @@ namespace Capstone.Classes
         public string Type { get; set; }
         public string Name { get; set; }
         public string Wrapper { get; set; }
-        public int Qty { get; } = 100;
+        public int Qty { get; set; } = 100;
         public decimal Price { get; set; }
 
         public Candy (string id, string type, string name, decimal price, string wrapper)

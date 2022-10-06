@@ -10,29 +10,62 @@ namespace Capstone.Classes
     /// </summary>
     public class Store
     {
+        DataAccess inventory = new DataAccess();
+        UserInterface ui = new UserInterface();
+       
         public decimal CustomerBalance { get; set; } = 0;
 
         public decimal TakeMoney(decimal addMoney)
         {
             CustomerBalance += addMoney;
 
-
             return CustomerBalance;
         }
-        public void Purchase(string selection)
+        public string Purchase(string selection)
         {//todo
-            DataAccess inventory = new DataAccess();
-            Candy[] result = inventory.GetCandy();
-            
-            for(int i = 0; i < result.Length; i++)
+            Candy[] candyresult = inventory.GetCandy();
+            string result = "";
+            for (int i = 0; i < candyresult.Length; i++)
             {
-                if (result[i].ID == selection)
+                if (candyresult[i].ID == selection)
                 {
-                    
+                    result = selection;
                 }
             }
+            return result;
+        }
 
+        public bool PurchaseAmount(int amountInput, string selection)
+        {
+            Candy[] candyresult = inventory.GetCandy();
+            for (int i = 0; i < candyresult.Length; i++)
+            {
+                if (candyresult[i].Qty >= amountInput)
+                {
+                    IsNotPoor(candyresult[i].Price * amountInput);
+                    candyresult[i].Qty = amountInput;
+                    AddToCart(candyresult[i]);
+                }
+            }
+            return false;
+        }
 
-        } 
+        public void IsNotPoor(decimal costOfCandy)
+        {
+            if(CustomerBalance >= costOfCandy)
+            {
+                CustomerBalance -= costOfCandy;
+            }
+            else
+            {
+                ui.IsPoor();
+            }
+        }
+
+        List<Candy> cart = new List<Candy>();
+        public void AddToCart(Candy itemCandy)
+        {
+            cart.Add(itemCandy);
+        }
     }
 }

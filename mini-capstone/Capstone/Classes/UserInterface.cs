@@ -57,6 +57,42 @@ namespace Capstone.Classes
                 Console.WriteLine(item.ToString());
             }
         }
+       
+        public void IsPoor()
+        {
+            Console.WriteLine("Insufficient Funds (aka you are too poor)");
+        }
+        public void CandySelection()
+        {
+            ListInventory();
+            Console.WriteLine("What would you like? (Please type candy ID) ");
+            string candySelected = Console.ReadLine();
+
+            if (store.Purchase(candySelected)!="")
+            {
+                HowMany();
+            }
+            else
+            {
+                Console.WriteLine("The product you have selected does NOT exist, please select again ");
+                MakeSalesMenu();
+            }
+        }
+        public int HowMany()
+        {
+            Console.Write("How many would you like? ");
+            int quantity = 0;
+            try
+            {
+                quantity = int.Parse(Console.ReadLine());
+                
+            }
+            catch(FormatException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return quantity;
+        }
         private void DisplayMenu()
         {
             Console.WriteLine();
@@ -71,8 +107,6 @@ namespace Capstone.Classes
             Console.WriteLine("(2) Select Products");
             Console.WriteLine("(3) Complete Sale");
             Console.WriteLine("Current Customer Balance:"+ store.CustomerBalance.ToString("C"));
-            
-
         }
         private void SalesDisplay()
         {
@@ -85,7 +119,7 @@ namespace Capstone.Classes
                     TakeMoney();
                     break;
                 case "2":
-                    ListInventory();
+                    CandySelection();
                     break;
                 case "3":
                     break;

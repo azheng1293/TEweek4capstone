@@ -31,6 +31,7 @@ namespace Capstone.Classes
                 }
             }
 
+
             //for (int i =0;i<candies.Count;i++)
             //{
             //    if (candies[i].ID[0] == 'C')
@@ -163,6 +164,23 @@ namespace Capstone.Classes
 
             return candies.ToArray();
         }
+
+        //public bool SetCandyAmount(Candy[] updatedCandyAmount)
+        //{
+        //    bool result = false;
+
+        //    using (StreamWriter sw = new StreamWriter(filename, false))
+        //    {
+        //        foreach (Candy item in updatedCandyAmount)
+        //        {
+        //            string line = $"{item.Type}|{item.ID}|{item.Name}|{item.Price}|{item.Wrapper}";
+        //            sw.WriteLine(line);
+        //        }
+        //    }
+        //    result = true;
+
+        //    return result;
+        //}
 
 
     }
