@@ -10,9 +10,9 @@ namespace Capstone.Classes
     /// </summary>
     public class Store
     {
+
+
         DataAccess inventory = new DataAccess();
-        UserInterface ui = new UserInterface();
-       
         public decimal CustomerBalance { get; set; } = 0;
 
         public decimal TakeMoney(decimal addMoney)
@@ -23,6 +23,8 @@ namespace Capstone.Classes
         }
         public string Purchase(string selection)
         {//todo
+           
+           
             Candy[] candyresult = inventory.GetCandy();
             string result = "";
             for (int i = 0; i < candyresult.Length; i++)
@@ -37,6 +39,8 @@ namespace Capstone.Classes
 
         public bool PurchaseAmount(int amountInput, string selection)
         {
+            
+            
             Candy[] candyresult = inventory.GetCandy();
             for (int i = 0; i < candyresult.Length; i++)
             {
@@ -45,6 +49,7 @@ namespace Capstone.Classes
                     IsNotPoor(candyresult[i].Price * amountInput);
                     candyresult[i].Qty = amountInput;
                     AddToCart(candyresult[i]);
+                    
                 }
             }
             return false;
@@ -52,7 +57,8 @@ namespace Capstone.Classes
 
         public void IsNotPoor(decimal costOfCandy)
         {
-            if(CustomerBalance >= costOfCandy)
+            UserInterface ui = new UserInterface();
+            if (CustomerBalance >= costOfCandy)
             {
                 CustomerBalance -= costOfCandy;
             }

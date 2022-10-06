@@ -70,7 +70,9 @@ namespace Capstone.Classes
 
             if (store.Purchase(candySelected)!="")
             {
-                HowMany();
+
+                store.PurchaseAmount(HowMany(), candySelected);
+                MakeSalesMenu();
             }
             else
             {
