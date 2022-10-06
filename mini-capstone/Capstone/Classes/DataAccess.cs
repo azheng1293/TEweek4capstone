@@ -31,6 +31,136 @@ namespace Capstone.Classes
                 }
             }
 
+            //for (int i =0;i<candies.Count;i++)
+            //{
+            //    if (candies[i].ID[0] == 'C')
+            //    {
+            //        if(candies[i].ID[1] == '1')
+            //        {
+            //            Candy interum = new Candy();
+            //            interum = candies[i];
+            //            candies[i] = candies[0];
+            //            candies[0] = interum;
+            //        }
+            //        else if (candies[i].ID[1] == '2')
+            //        {
+            //            Candy interum = new Candy();
+            //            interum = candies[i];
+            //            candies[i] = candies[1];
+            //            candies[0] = interum;
+            //        }
+            //        else if (candies[i].ID[1] == '3')
+            //        {
+            //            Candy interum = new Candy();
+            //            interum = candies[i];
+            //            candies[i] = candies[2];
+            //            candies[0] = interum;
+            //        }
+            //        else 
+            //        {
+            //            Candy interum = new Candy();
+            //            interum = candies[i];
+            //            candies[i] = candies[3];
+            //            candies[0] = interum;
+            //        }
+            //    }
+            //    else if (candies[i].ID[0] == 'H')
+            //    {
+            //        if (candies[i].ID[1] == '1')
+            //        {
+            //            Candy interum = new Candy();
+            //            interum = candies[i];
+            //            candies[i] = candies[0];
+            //            candies[0] = interum;
+            //        }
+            //        else if (candies[i].ID[1] == '2')
+            //        {
+            //            Candy interum = new Candy();
+            //            interum = candies[i];
+            //            candies[i] = candies[1];
+            //            candies[0] = interum;
+            //        }
+            //        else if (candies[i].ID[1] == '3')
+            //        {
+            //            Candy interum = new Candy();
+            //            interum = candies[i];
+            //            candies[i] = candies[2];
+            //            candies[0] = interum;
+            //        }
+            //        else
+            //        {
+            //            Candy interum = new Candy();
+            //            interum = candies[i];
+            //            candies[i] = candies[3];
+            //            candies[0] = interum;
+            //        }
+            //    }
+            //    else if (candies[i].ID[0] == 'L')
+            //    {
+            //        if (candies[i].ID[1] == '1')
+            //        {
+            //            Candy interum = new Candy();
+            //            interum = candies[i];
+            //            candies[i] = candies[0];
+            //            candies[0] = interum;
+            //        }
+            //        else if (candies[i].ID[1] == '2')
+            //        {
+            //            Candy interum = new Candy();
+            //            interum = candies[i];
+            //            candies[i] = candies[1];
+            //            candies[0] = interum;
+            //        }
+            //        else if (candies[i].ID[1] == '3')
+            //        {
+            //            Candy interum = new Candy();
+            //            interum = candies[i];
+            //            candies[i] = candies[2];
+            //            candies[0] = interum;
+            //        }
+            //        else
+            //        {
+            //            Candy interum = new Candy();
+            //            interum = candies[i];
+            //            candies[i] = candies[3];
+            //            candies[0] = interum;
+            //        }
+            //    }
+            //    else if (candies[i].ID[0] == 'S')
+            //    {
+
+            //        if (candies[i].ID[1] == '1')
+            //        {
+            //            Candy interum = new Candy();
+            //            interum = candies[i];
+            //            candies[i] = candies[0];
+            //            candies[0] = interum;
+            //        }
+            //        else if (candies[i].ID[1] == '2')
+            //        {
+            //            Candy interum = new Candy();
+            //            interum = candies[i];
+            //            candies[i] = candies[1];
+            //            candies[0] = interum;
+            //        }
+            //        else if (candies[i].ID[1] == '3')
+            //        {
+            //            Candy interum = new Candy();
+            //            interum = candies[i];
+            //            candies[i] = candies[2];
+            //            candies[0] = interum;
+            //        }
+            //        else
+            //        {
+            //            Candy interum = new Candy();
+            //            interum = candies[i];
+            //            candies[i] = candies[3];
+            //            candies[0] = interum;
+            //        }
+            //    }
+
+            //}
+
             return candies.ToArray();
         }
 

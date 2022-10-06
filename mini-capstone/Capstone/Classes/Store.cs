@@ -10,5 +10,29 @@ namespace Capstone.Classes
     /// </summary>
     public class Store
     {
+        public decimal CustomerBalance { get; set; } = 0;
+
+        public decimal TakeMoney(decimal addMoney)
+        {
+            CustomerBalance += addMoney;
+
+
+            return CustomerBalance;
+        }
+        public void Purchase(string selection)
+        {//todo
+            DataAccess inventory = new DataAccess();
+            Candy[] result = inventory.GetCandy();
+            
+            for(int i = 0; i < result.Length; i++)
+            {
+                if (result[i].ID == selection)
+                {
+                    
+                }
+            }
+
+
+        } 
     }
 }

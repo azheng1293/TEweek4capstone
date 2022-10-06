@@ -33,6 +33,7 @@ namespace Capstone.Classes
                         ListInventory();
                         break;
                     case "2":
+                        SalesDisplay();
                         break;
                     case "3":
                         break;
@@ -62,6 +63,78 @@ namespace Capstone.Classes
             Console.WriteLine("(1) Show Inventory");
             Console.WriteLine("(2) Make Sale");
             Console.WriteLine("(3) Quit");
+        }
+        private void MakeSalesMenu()
+        {
+            Console.WriteLine();
+            Console.WriteLine("(1) Take Money");
+            Console.WriteLine("(2) Select Products");
+            Console.WriteLine("(3) Complete Sale");
+            Console.WriteLine("Current Customer Balance:"+ store.CustomerBalance.ToString("C"));
+            
+
+        }
+        private void SalesDisplay()
+        {
+            MakeSalesMenu();
+            string userInput = Console.ReadLine();
+
+            switch (userInput)
+            {
+                case "1":
+                    TakeMoney();
+                    break;
+                case "2":
+                    ListInventory();
+                    break;
+                case "3":
+                    break;
+                default:
+                    Console.WriteLine();
+                    Console.WriteLine("Please make a valid choice");
+                    break;
+            }
+        }
+        private void TakeMoney()
+        {
+            Console.WriteLine();
+            Console.Write("Amount to be added up to $100.00:");
+            bool loop = true;
+            decimal addedAmount = 0;
+            while (loop)
+            {
+                try
+                {
+                    addedAmount = decimal.Parse(Console.ReadLine());
+                    
+                }
+                catch (FormatException ex)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("Please enter in number format:");
+
+                }
+
+                if (addedAmount <= 100 && (store.CustomerBalance+addedAmount<=1000))
+                {
+
+                    store.TakeMoney(addedAmount);
+                    SalesDisplay();
+                }
+                else if((store.CustomerBalance + addedAmount > 1000))
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Balance can't exceed $1,000.00:");
+                    Console.WriteLine();
+                }
+                else
+                {
+                    Console.WriteLine();
+                    Console.Write("Please enter an amount up to $100.00:");
+                    Console.WriteLine();
+                }
+            }
         }
     }
 }
