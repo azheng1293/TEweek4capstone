@@ -11,10 +11,20 @@ namespace Capstone.Classes
     public class Store
     {
 
-
         DataAccess inventory = new DataAccess();
+        List<Candy> candyList = new List<Candy>();
+
         public decimal CustomerBalance { get; set; } = 0;
 
+        public Store()
+        {
+            List<Candy> candyList = new List<Candy>();
+            Candy[] candyresult = inventory.GetCandy();
+            for (int i = 0; i < candyresult.Length; i++)
+            {
+                candyList.Add(candyresult[i]);
+            }
+        }
         public decimal TakeMoney(decimal addMoney)
         {
             CustomerBalance += addMoney;
@@ -24,12 +34,11 @@ namespace Capstone.Classes
         public string Purchase(string selection)
         {//todo
            
-           
-            Candy[] candyresult = inventory.GetCandy();
+            
             string result = "";
-            for (int i = 0; i < candyresult.Length; i++)
+            for (int i = 0; i < candyList.Count; i++)
             {
-                if (candyresult[i].ID == selection)
+                if (candyList[i].ID == selection)
                 {
                     result = selection;
                 }
@@ -37,35 +46,47 @@ namespace Capstone.Classes
             return result;
         }
 
-        public bool PurchaseAmount(int amountInput, string selection)
-        {
+        public int PurchaseAmount(int amountInput, string selection)
+        {    
             
-            
-            Candy[] candyresult = inventory.GetCandy();
-            for (int i = 0; i < candyresult.Length; i++)
+            for (int i = 0; i < candyList.Count; i++)
             {
-                if (candyresult[i].Qty >= amountInput)
+                if (candyList[i].Qty >= amountInput && candyList[i].ID == selection)
                 {
-                    IsNotPoor(candyresult[i].Price * amountInput);
-                    candyresult[i].Qty = amountInput;
-                    AddToCart(candyresult[i]);
+                    bool result = HasEnoughMoney(candyList[i].Price * amountInput);
+                    if (result)
+                    {
+                        Candy newCartCandy = new Candy();
+                        newCartCandy = candyList[i];
+                        newCartCandy.Qty = amountInput;
+                        AddToCart(newCartCandy);
+                        candyList[i].Qty -= amountInput;
+                        return 1;
+                    }
+                    else
+                    {
+                        return 3;
+                    }
                     
                 }
+                else if(candyList[i].Qty < amountInput && candyList[i].ID == selection)
+                {
+                    return 2;
+                }
             }
-            return false;
+            return 3;
+            
         }
 
-        public void IsNotPoor(decimal costOfCandy)
+        public bool HasEnoughMoney(decimal costOfCandy)
         {
-            UserInterface ui = new UserInterface();
             if (CustomerBalance >= costOfCandy)
             {
                 CustomerBalance -= costOfCandy;
+                return true;
             }
-            else
-            {
-                ui.IsPoor();
-            }
+            return false;
+
         }
 
         List<Candy> cart = new List<Candy>();

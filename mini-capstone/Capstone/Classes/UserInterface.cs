@@ -21,7 +21,7 @@ namespace Capstone.Classes
         {
 
             bool done = false;
-
+            
             while (!done)
             {
                 DisplayMenu();
@@ -33,7 +33,7 @@ namespace Capstone.Classes
                         ListInventory();
                         break;
                     case "2":
-                        SalesDisplay();
+                        MakeSalesMenu();
                         break;
                     case "3":
                         break;
@@ -58,21 +58,30 @@ namespace Capstone.Classes
             }
         }
        
-        public void IsPoor()
-        {
-            Console.WriteLine("Insufficient Funds (aka you are too poor)");
-        }
+     
         public void CandySelection()
         {
             ListInventory();
             Console.WriteLine("What would you like? (Please type candy ID) ");
             string candySelected = Console.ReadLine();
+            int canTheyBuy = 0;
 
             if (store.Purchase(candySelected)!="")
             {
 
-                store.PurchaseAmount(HowMany(), candySelected);
-                MakeSalesMenu();
+                canTheyBuy = store.PurchaseAmount(HowMany(), candySelected);
+                switch (canTheyBuy)
+                {
+                    case 1:
+                        MakeSalesMenu();
+                        break;
+                    case 2:
+                        Console.WriteLine("Insufficient Stock");
+                        break;
+                    case 3:
+                        Console.WriteLine("Insufficient Funds");
+                        break;
+                }
             }
             else
             {
@@ -95,6 +104,7 @@ namespace Capstone.Classes
             }
             return quantity;
         }
+        
         private void DisplayMenu()
         {
             Console.WriteLine();
@@ -102,7 +112,7 @@ namespace Capstone.Classes
             Console.WriteLine("(2) Make Sale");
             Console.WriteLine("(3) Quit");
         }
-        private void MakeSalesMenu()
+        private void SalesDisplay()
         {
             Console.WriteLine();
             Console.WriteLine("(1) Take Money");
@@ -110,25 +120,30 @@ namespace Capstone.Classes
             Console.WriteLine("(3) Complete Sale");
             Console.WriteLine("Current Customer Balance:"+ store.CustomerBalance.ToString("C"));
         }
-        private void SalesDisplay()
+        private void MakeSalesMenu()
         {
-            MakeSalesMenu();
-            string userInput = Console.ReadLine();
+            bool done = false;
 
-            switch (userInput)
+            while (!done)
             {
-                case "1":
-                    TakeMoney();
-                    break;
-                case "2":
-                    CandySelection();
-                    break;
-                case "3":
-                    break;
-                default:
-                    Console.WriteLine();
-                    Console.WriteLine("Please make a valid choice");
-                    break;
+                SalesDisplay();
+                string userInput = Console.ReadLine();
+
+                switch (userInput)
+                {
+                    case "1":
+                        TakeMoney();
+                        break;
+                    case "2":
+                        CandySelection();
+                        break;
+                    case "3":
+                        break;
+                    default:
+                        Console.WriteLine();
+                        Console.WriteLine("Please make a valid choice");
+                        break;
+                }
             }
         }
         private void TakeMoney()
@@ -152,17 +167,21 @@ namespace Capstone.Classes
 
                 }
 
-                if (addedAmount <= 100 && (store.CustomerBalance+addedAmount<=1000))
+                if (addedAmount <= 100 && addedAmount >=0 && (store.CustomerBalance + addedAmount <= 1000))
                 {
 
                     store.TakeMoney(addedAmount);
-                    SalesDisplay();
+                    MakeSalesMenu();
                 }
                 else if((store.CustomerBalance + addedAmount > 1000))
                 {
                     Console.WriteLine();
                     Console.WriteLine("Balance can't exceed $1,000.00:");
                     Console.WriteLine();
+                }
+                else if(addedAmount < 0)
+                {
+                    Console.WriteLine("Please enter an amount greater than $0.00");
                 }
                 else
                 {
