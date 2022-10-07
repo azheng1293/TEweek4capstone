@@ -4,7 +4,7 @@ using System.Text;
 using System.IO;
 
 namespace Capstone.Classes
-{
+{ 
     class DataAccess
     {
         private string filename = @"C:\Store\inventory.csv";
@@ -27,28 +27,47 @@ namespace Capstone.Classes
                     candy.Price = decimal.Parse(split[3]);
                     candy.Wrapper = candy.IfWrapper(split[4]);
                     
+                    
                     candies.Add(candy);
                 }
             }
             return candies.ToArray();
         }
 
-        //public bool SetCandyAmount(Candy[] updatedCandyAmount)
-        //{
-        //    bool result = false;
+        private string outputFile = @"C:\Store\log.txt";
+        public void LogMoneyRecieved(decimal addMoney, decimal customerBalance)
+        {
+            
+            using (StreamWriter sw = new StreamWriter(outputFile, true))
+            {
+                {
+                    string line = $"{DateTime.Now} MONEY RECIEVED: {addMoney.ToString("C")}  {customerBalance.ToString("C")} ";
+                    sw.WriteLine(line);
+                }
+            }
+        }
+        public void LogChangeGiven(decimal giveMoneyBack)
+        {
+            
+            using (StreamWriter sw = new StreamWriter(outputFile, true))
+            {
+                {
+                    string line = $"{DateTime.Now} CHANGE GIVEN {giveMoneyBack.ToString("C")}  $0.00 ";
+                    sw.WriteLine(line);
+                }
+            }
+        }
+        public void LogSelection(Candy selection)
+        { 
+            using (StreamWriter sw = new StreamWriter(outputFile, true))
+            {
+                {
+                    string line = $"{DateTime.Now} {selection.Qty} {selection.Name} {selection.ID} {selection.Price.ToString("C")} {(int.Parse(selection.Qty)*selection.Price).ToString("C")}";
+                    sw.WriteLine(line);
+                }
+            }
+        }
 
-        //    using (StreamWriter sw = new StreamWriter(filename, false))
-        //    {
-        //        foreach (Candy item in updatedCandyAmount)
-        //        {
-        //            string line = $"{item.Type}|{item.ID}|{item.Name}|{item.Price}|{item.Wrapper}";
-        //            sw.WriteLine(line);
-        //        }
-        //    }
-        //    result = true;
-
-        //    return result;
-        //}
 
 
     }

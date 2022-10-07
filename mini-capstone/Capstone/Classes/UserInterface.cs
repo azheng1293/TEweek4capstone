@@ -6,7 +6,8 @@ namespace Capstone.Classes
 {
     class UserInterface
     {
-        private Store store = new Store();
+        
+        public Store store = new Store();
 
 
         /// <summary>
@@ -36,6 +37,7 @@ namespace Capstone.Classes
                         MakeSalesMenu();
                         break;
                     case "3":
+                        Environment.Exit(0);
                         break;
                     default:
                         Console.WriteLine();
@@ -48,13 +50,12 @@ namespace Capstone.Classes
 
         private void ListInventory()
         {
-            DataAccess inventory = new DataAccess();
-            Candy[] result = inventory.GetCandy();
+           
             Console.WriteLine("Id".PadLeft(5) + "Name".PadLeft(7) + "Wrapper".PadLeft(19) + "Qty".PadLeft(11) + "Price".PadLeft(14));
 
-            foreach (Candy item in result)
+            for (int i =0;i<store.Candy.Count;i++)
             {
-                Console.WriteLine(item.ToString());
+                Console.WriteLine(store.Candy[i].ToString());
             }
         }
        
@@ -138,6 +139,7 @@ namespace Capstone.Classes
                         CandySelection();
                         break;
                     case "3":
+                        CompleteSale();
                         break;
                     default:
                         Console.WriteLine();
@@ -190,6 +192,27 @@ namespace Capstone.Classes
                     Console.WriteLine();
                 }
             }
+    
+        }
+        public void CompleteSale()
+        { decimal total = 0;
+            store.changeType();
+            Console.WriteLine();
+            Console.WriteLine();
+            for (int i = 0; i < store.Cart.Count; i++)
+            {
+                Console.WriteLine(store.Cart[i].RegisterString());
+                total = (int.Parse(store.Cart[i].Qty) * store.Cart[i].Price);
+            }
+            DataAccess printChange = new DataAccess();
+            printChange.LogChangeGiven(store.CustomerBalance);
+            Console.WriteLine("Total: " +total.ToString("C"));
+            Console.WriteLine();
+            Console.WriteLine("Change: "+store.CustomerBalance.ToString("C"));
+            Console.WriteLine(store.ChangeDefiner(store.CustomerBalance));
+            store.CustomerBalance = 0;
+            Run();
         }
     }
+
 }

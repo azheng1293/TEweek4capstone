@@ -10,7 +10,7 @@ namespace Capstone.Classes
         public string Type { get; set; }
         public string Name { get; set; }
         public string Wrapper { get; set; }
-        public int Qty { get; set; } = 100;
+        public string Qty { get; set; } = "100";
         public decimal Price { get; set; }
 
         public Candy (string id, string type, string name, decimal price, string wrapper)
@@ -43,6 +43,10 @@ namespace Capstone.Classes
         public override string ToString()
         {
             return $"{ID.PadLeft(5)}  {Name.PadRight(20)} {Wrapper.PadRight(10)} {Qty.ToString().PadRight(10)}  {Price.ToString("C").PadRight(50)}";
+        }
+        public string RegisterString()
+        {
+            return $"{Qty.PadLeft(0)}  {Name.PadRight(18)} {Type.PadRight(15)} {Price.ToString("C").PadLeft(8)}  {(Price*int.Parse(Qty)).ToString("C").PadRight(6)}";
         }
 
     }
