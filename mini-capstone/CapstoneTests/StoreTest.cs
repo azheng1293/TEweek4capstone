@@ -70,6 +70,19 @@ namespace CapstoneTests
             Assert.AreEqual(true, result);
         }
 
+        [TestMethod]  
+        public void HasNoMoneyTest()
+        {
+            //Arrange
+            Store testObject = new Store();
+            testObject.CustomerBalance = 10;
+            //Act (done in arrange above)
+            bool result = testObject.HasEnoughMoney(13);
+            //Assert
+            Assert.AreEqual(false, result);
+        }
+
+
         [TestMethod]
         public void ChangeDefinerTest()
         {

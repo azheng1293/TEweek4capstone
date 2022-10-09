@@ -6,10 +6,10 @@ namespace Capstone.Classes
 {
     public class Candy
     {
-        public string ID { get; set; }
+        public string ID { get; private set; }
         public string Type { get; set; }
-        public string Name { get; set; }
-        public string Wrapper { get; set; }
+        public string Name { get; private set; }
+        public string Wrapper { get; private set; }
         public string Qty { get; set; } = "100";
         public decimal Price { get; set; }
 

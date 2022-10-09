@@ -44,7 +44,6 @@ namespace Capstone.Classes
                         Console.WriteLine("Please make a valid choice");
                         break;
                 }
-
             }
         }
 
@@ -65,6 +64,7 @@ namespace Capstone.Classes
             ListInventory();
             Console.WriteLine("What would you like? (Please type candy ID) ");
             string candySelected = Console.ReadLine();
+            candySelected = candySelected.ToUpper();
             int canTheyBuy = 0;
 
             if (store.Purchase(candySelected)!="")
@@ -150,12 +150,13 @@ namespace Capstone.Classes
         }
         private void TakeMoney()
         {
-            Console.WriteLine();
-            Console.Write("Amount to be added up to $100.00:");
+            
             bool loop = true;
             decimal addedAmount = 0;
             while (loop)
             {
+                Console.WriteLine();
+                Console.Write("Amount to be added (up to $100.00):");
                 try
                 {
                     addedAmount = decimal.Parse(Console.ReadLine());
@@ -165,7 +166,7 @@ namespace Capstone.Classes
                 {
                     Console.WriteLine();
                     Console.WriteLine(ex.Message);
-                    Console.WriteLine("Please enter in number format:");
+                    Console.WriteLine("Please enter in number format.");
 
                 }
 
@@ -178,18 +179,18 @@ namespace Capstone.Classes
                 else if((store.CustomerBalance + addedAmount > 1000))
                 {
                     Console.WriteLine();
-                    Console.WriteLine("Balance can't exceed $1,000.00:");
-                    Console.WriteLine();
+                    Console.WriteLine("Balance can't exceed $1,000.00.");
+       
                 }
                 else if(addedAmount < 0)
                 {
-                    Console.WriteLine("Please enter an amount greater than $0.00");
+                    Console.WriteLine("Please enter an amount greater than $0.00.");
                 }
                 else
                 {
                     Console.WriteLine();
-                    Console.Write("Please enter an amount up to $100.00:");
-                    Console.WriteLine();
+                    Console.Write("Please enter an amount up to $100.00.");
+                   
                 }
             }
     

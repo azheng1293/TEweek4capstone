@@ -14,7 +14,8 @@ namespace Capstone.Classes
         DataAccess inventory = new DataAccess();
         List<Candy> candyList = new List<Candy>();
         public List<Candy> Candy
-        { get
+        { 
+            get
             {
                 return candyList;
             } 
@@ -30,13 +31,13 @@ namespace Capstone.Classes
 
         public Store()
         {
-           
             Candy[] candyresult = inventory.GetCandy();
             for (int i = 0; i < candyresult.Length; i++)
             {
                 candyList.Add(candyresult[i]);
             }
         }
+
         public void changeType()
         {
             for (int i = 0; i < cart.Count; i++)
@@ -58,8 +59,8 @@ namespace Capstone.Classes
                     cart[i].Type = "Licorice and Jellies";
                 }
             }
-
         }
+
         public decimal TakeMoney(decimal addMoney)
         {
             DataAccess additinalFunds = new DataAccess();
@@ -69,10 +70,9 @@ namespace Capstone.Classes
 
             return CustomerBalance;
         }
+
         public string Purchase(string selection)
-        {//todo
-           
-            
+        {
             string result = "";
             for (int i = 0; i < candyList.Count; i++)
             {
@@ -85,8 +85,7 @@ namespace Capstone.Classes
         }
 
         public int PurchaseAmount(int amountInput, string selection)
-        {    
-            
+        {
             for (int i = 0; i < candyList.Count; i++)
             {
                 if (int.Parse(candyList[i].Qty) >= amountInput && candyList[i].ID == selection)
@@ -94,16 +93,11 @@ namespace Capstone.Classes
                     bool result = HasEnoughMoney(candyList[i].Price * amountInput);
                     if (result)
                     {
-                        Candy newCartCandy = new Candy();
-                        newCartCandy.Type = candyList[i].Type;
-                        newCartCandy.ID = candyList[i].ID;
-                        newCartCandy.Name = candyList[i].Name;
-                        newCartCandy.Wrapper = candyList[i].Wrapper;
-                        newCartCandy.Price = candyList[i].Price;
+                        Candy newCartCandy = new Candy(candyList[i].ID,candyList[i].Type,candyList[i].Name,candyList[i].Price,candyList[i].Wrapper);
                         newCartCandy.Qty = amountInput.ToString();
                         AddToCart(newCartCandy);
-                       int subQty =(int.Parse(candyList[i].Qty) - amountInput);
-                        if (int.Parse(candyList[i].Qty) == 0 || subQty<0)
+                        int subQty = (int.Parse(candyList[i].Qty) - amountInput);
+                        if (int.Parse(candyList[i].Qty) == 0 || subQty < 0)
                         {
                             candyList[i].Qty = "SOLD OUT";
                             return 2;
@@ -111,7 +105,7 @@ namespace Capstone.Classes
                         else if (subQty == 0)
                         {
                             candyList[i].Qty = "SOLD OUT";
-                            return 1;
+                            return 1; 
                         }
                         else
                         {
@@ -126,8 +120,7 @@ namespace Capstone.Classes
                     }
                     
                 }
-          
-                else if((int.Parse(candyList[i].Qty) < amountInput || candyList[i].Qty=="SOLD OUT" )&& candyList[i].ID == selection)
+                else if((int.Parse(candyList[i].Qty) < amountInput || candyList[i].Qty=="SOLD OUT" ) && candyList[i].ID == selection)
                 {
                     return 2;
                 }
@@ -144,7 +137,6 @@ namespace Capstone.Classes
                 return true;
             }
             return false;
-
         }
 
         List<Candy> cart = new List<Candy>();
@@ -154,6 +146,7 @@ namespace Capstone.Classes
             cartAddition.LogSelection(itemCandy);
             cart.Add(itemCandy);
         }
+
         public string ChangeDefiner(decimal change)
         {   
             int twenties = 0;
@@ -179,12 +172,14 @@ namespace Capstone.Classes
             nickels = (int)(change / .05M);
             change = change - (nickels * .05M);
             string totalTwenties = $"({twenties}) Twenties,";
-            string  totalTens = $" ({tens}) Tens,";
+            string totalTens = $" ({tens}) Tens,";
             string totalFives = $" ({fives}) Fives,";
             string totalOnes = $" ({ones}) Ones,";
             string totalQuarters = $" ({quarters}) Quarters,";
             string totalDimes = $" ({dimes}) Dimes,";
-            string totalNickels = $" ({nickels}) Nickels";
+            string totalNickels = $" ({nickels}) Nickels,";
+
+
             if (twenties == 0)
             {
                 totalTwenties = "";
@@ -213,8 +208,9 @@ namespace Capstone.Classes
             {
                 totalNickels = "";
             }
-
-            return totalTwenties+totalTens+totalFives+totalOnes+totalQuarters+totalDimes+totalNickels;
+            
+            string totalchange = totalTwenties+totalTens+totalFives+totalOnes+totalQuarters+totalDimes+totalNickels;
+            return totalchange.Substring(0, totalchange.Length - 1);
         }
       
     }

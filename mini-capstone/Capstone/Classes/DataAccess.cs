@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Linq; 
 
 namespace Capstone.Classes
 { 
@@ -12,7 +13,8 @@ namespace Capstone.Classes
         public Candy[] GetCandy()
         {
             List<Candy> candies = new List<Candy>();
-
+            List<Candy> sortingCandy = new List<Candy>();
+            Candy wrapper = new Candy();
             using (StreamReader sr = new StreamReader(filename))
             {
                 while (!sr.EndOfStream)
@@ -20,18 +22,13 @@ namespace Capstone.Classes
                     string line = sr.ReadLine();
                     string[] split = line.Split('|');
 
-                    Candy candy = new Candy();
-                    candy.Type = split[0];
-                    candy.ID = split[1];
-                    candy.Name = split[2];
-                    candy.Price = decimal.Parse(split[3]);
-                    candy.Wrapper = candy.IfWrapper(split[4]);
-                    
+                    Candy candy = new Candy(split[1], split[0], split[2], decimal.Parse(split[3]),wrapper.IfWrapper(split[4])) ; 
                     
                     candies.Add(candy);
                 }
             }
-            return candies.ToArray();
+            sortingCandy = candies.OrderBy(x => x.ID).ToList(); //sorted in alphabetical order
+            return sortingCandy.ToArray();
         }
 
         private string outputFile = @"C:\Store\log.txt";
